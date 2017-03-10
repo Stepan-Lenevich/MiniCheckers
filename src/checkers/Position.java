@@ -8,16 +8,10 @@ import java.util.Set;
 
 public class Position {
 
-    /**
-     * @return the uncheckedMoves
-     */
     public Set<Long> getUncheckedMoves() {
         return uncheckedMoves;
     }
 
-    /**
-     * @param uncheckedMoves the uncheckedMoves to set
-     */
     public void setUncheckedMoves(Set<Long> uncheckedMoves) {
         this.uncheckedMoves = uncheckedMoves;
     }
@@ -38,8 +32,8 @@ public class Position {
     //public Long bestChild;
     public int lengthOfBestSequence;        //negative for losing, positive for winning, 0 for unsolved
     
-    public byte[][] board;    // //
-    private Stage stage;            // //
+    public byte[][] board;   
+    private Stage stage;            
 
     public Position() {    //returns initial position
         parent = null;

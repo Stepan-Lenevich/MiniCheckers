@@ -173,8 +173,6 @@ public class Moves {
             boolean isLandingOnBoard = isLandingSquareWithinBoard(i+2*side.y,j+2*side.x);
             
             if(isLandingOnBoard){
-            
-            //to remove
 
             
             byte landing = position[i+2*side.y][j+2*side.x];

@@ -65,24 +65,18 @@ public class Data {
 
         }
         int sumOfActivePlayersPieces = 0;
-        for (int i = 0; i < pos.board.length; i++) {
-            for (int j = 0; j < pos.board[i].length; j++) {
-                if (pos.board[i][j] == tokken) {
+        for (byte[] board : pos.board) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[j] == tokken) {
                     sumOfActivePlayersPieces += 1;
-
                 }
             }
-
         }
         if (sumOfActivePlayersPieces == 0) {
             return false;
         }
         Set<Long> moves = Moves.getSetOfLegalMoves(pos.board, pos.p);
-        if (moves.isEmpty()) {
-            return false;
-        }
-
-        return true;
+        return !moves.isEmpty();
     }
 
     private static boolean isThisVariantBetter(Long id, Integer length) {

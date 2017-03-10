@@ -1,0 +1,3 @@
+bestPly is stored within Position, but positionToPlyMap is only updated when all children were solved.
+
+

@@ -5,10 +5,6 @@
  */
 package checkers;
 
-import gui.Frame;
-
-
-
 /**
  *
  * @author stepan

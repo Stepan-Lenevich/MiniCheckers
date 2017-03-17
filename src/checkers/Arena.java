@@ -97,7 +97,7 @@ public class Arena {
             System.out.println("What is your move?\n");
             try {
                 userInput = Integer.parseInt(sc.next());
-                if(userInput >= 0 || userInput < possibleMoves.size())break; 
+                if(userInput >= 0 && userInput < possibleMoves.size())break; 
                 
             } catch (NumberFormatException ignore) {
                 System.out.println("Invalid input. What is your move?\n");

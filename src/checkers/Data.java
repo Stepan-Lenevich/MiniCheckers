@@ -3,22 +3,19 @@ package checkers;
 import checkers.Enums.Player;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class Data {
 
     private static final Map<Long, Integer> positionToPlyMap;
     public static final Rules r;
     public static final Moves m;
-    public static final Position initialPosition;
-
-  
+    //public static final Position initialPosition;
 
     static {
         r = new Rules(6, 6, 6); //(6, 6, 6)
         m = new Moves();
 
-        initialPosition = new Position();
+        //initialPosition = new Position();
         positionToPlyMap = new HashMap<>();
 
     }
@@ -52,8 +49,9 @@ public class Data {
         return "PositionToPlyMap size is " + positionToPlyMap.size();
     }
 
+    /*
     public static boolean isPositionValid(Position pos) {
-        int tokken = pos.p.id;
+        int tokken = pos.p.getId();
         int opponentTokken = tokken == 0 ? 1 : 0;
         int lastLineIndex = opponentTokken * (Data.r.bHeight - 1);
 
@@ -77,21 +75,19 @@ public class Data {
         }
         Set<Long> moves = Moves.getSetOfLegalMoves(pos.board, pos.p);
         return !moves.isEmpty();
-    }
-
+    } */
     private static boolean isThisVariantBetter(Long id, Integer length) {
 
         if (!positionToPlyMap.containsKey(id)) { //if no record - make a record
             return true;
-            
-            
+
         } else {
             Integer previousValue = positionToPlyMap.get(id);
 
             if (length > 0 && (previousValue < 0 || previousValue > length)) { //if this move winning and previous record was losing or longer winning
                 return true;
             }
-            if (length < 0 &&  previousValue > length) { //if this move is loosing but over longer time than recorded move
+            if (length < 0 && previousValue > length) { //if this move is loosing but over longer time than recorded move
                 return true;
             }
 

@@ -7,22 +7,16 @@ import java.util.Set;
 
 public class Solver {
 
-    public final Long initPositionID;
     private Position pos;
     boolean solved;
-   
 
     public Solver() {
-
-        
         solved = false;
         pos = new Position();
-        initPositionID = pos.positionID;
-        
-        solve();
+
     }
 
-    private void solve() {
+    void solve() {
 
         while (!solved) {
             switch (pos.getStage()) {
@@ -104,7 +98,7 @@ public class Solver {
 
         Data.updateBestPly(pos.positionID, pos.p, pos.lengthOfBestSequence);
 
-        if (pos.parent == null) {
+        if (pos.getParent() == null) {
             System.out.println("Solved. Fastest win in " + pos.lengthOfBestSequence + " moves");
 
             System.out.println(Data.getSize());
@@ -114,7 +108,7 @@ public class Solver {
         } else {
 
             Long idToRemove = pos.positionID;
-            Position parent = pos.parent;
+            Position parent = pos.getParent();
 
             parent.lengthOfBestSequence = updateNegPosChildPly(parent.lengthOfBestSequence, pos.lengthOfBestSequence);
 

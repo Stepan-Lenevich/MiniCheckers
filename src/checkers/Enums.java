@@ -1,8 +1,12 @@
 package checkers;
 
-
 public class Enums {
-    
+
+    public enum Hints {
+        AI_TO_MOVE, PLAYER_TO_MOVE, SELECTED_PIECE, MOVE_CONCLUDED, INACTIVE;
+
+    };
+
     public enum State {
         VALID("valid"), WHITEWINS("white wins"), BLACKWINS("black wins"), INVALID("invalid"), UNCHECKED("Position haven't been checked");
         public final String value;
@@ -12,16 +16,15 @@ public class Enums {
         }
     };
 
-
     public enum Side {
         NE(-1, 1), SE(1, 1), SW(1, -1), NW(-1, -1);
 
         public final byte y;
         public final byte x;
 
-        private Side(int i, int j) {
-            this.y = (byte) i;
-            this.x = (byte) j;
+        private Side(int x, int y) {
+            this.y = (byte) x;
+            this.x = (byte) y;
 
         }
     };
@@ -34,7 +37,7 @@ public class Enums {
         INVALID(-1, 3, 3, '*', new Side[]{}
         );
 
-        byte id;
+        private byte id;
         byte opponentID;
         byte direction;
         char tokken;
@@ -47,27 +50,25 @@ public class Enums {
             this.tokken = tokken;
             this.forward = forward;
         }
+
+        public byte getId() {
+            return id;
+        }
+
+        public void setId(byte id) {
+            this.id = id;
+        }
     };
 
     public static byte charToByteBoard(char tokken) {
         tokken = Character.toUpperCase(tokken);
         for (Player p : Player.values()) {
             if (p.tokken == tokken) {
-                return p.id;
+                return p.getId();
             }
         }
-        return Player.EMPTY.id;
+        return Player.EMPTY.getId();
 
     }
-    
-    public static Player getPlayerFromPositionID(Long posID){
-        if(posID>0) return Player.WHITE;
-        if(posID<0) return Player.BLACK;
-        return Player.INVALID;
-        
-    }
-
-
 
 }
-

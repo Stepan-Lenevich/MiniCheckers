@@ -57,13 +57,13 @@ public class Rules {
             for (int j = 0; j < bWidth; j++) {
                 boolean isDummy = (i + j) % 2 == dummySquares;
                 if (isDummy) {
-                    position[i][j] = Player.EMPTY.id;
+                    position[i][j] = Player.EMPTY.getId();
                 } else if (i < numOfLines) {
-                    position[i][j] = Player.BLACK.id;
+                    position[i][j] = Player.BLACK.getId();
                 } else if (i >= bHeight - numOfLines) {
-                    position[i][j] = Player.WHITE.id;
+                    position[i][j] = Player.WHITE.getId();
                 } else {
-                    position[i][j] = Player.EMPTY.id;
+                    position[i][j] = Player.EMPTY.getId();
                 }
             }
         }
@@ -78,11 +78,15 @@ public class Rules {
         return result;
     }
 
-    private int countPieces(byte[][] board, Player P) {
+    public static int countPieces(Position pos) {
+        return countPieces(pos.board, pos.p);
+    }
+
+    public static int countPieces(byte[][] board, Player P) {
         int sum = 0;
         for (byte[] boardLine : board) {
             for (byte cell : boardLine) {
-                if (cell == P.id) {
+                if (cell == P.getId()) {
                     sum += 1;
                 }
             }
@@ -118,7 +122,7 @@ public class Rules {
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                board[i][j] = Player.EMPTY.id;
+                board[i][j] = Player.EMPTY.getId();
 
             }
         }
@@ -142,10 +146,10 @@ public class Rules {
             return State.INVALID;
         }
 
-        if (piecesOnFirstAndLastLines[Player.WHITE.id] == 1) {
+        if (piecesOnFirstAndLastLines[Player.WHITE.getId()] == 1) {
             return State.WHITEWINS;
         }
-        if (piecesOnFirstAndLastLines[Player.BLACK.id] == 1) {
+        if (piecesOnFirstAndLastLines[Player.BLACK.getId()] == 1) {
             return State.BLACKWINS;
         }
 
@@ -171,7 +175,7 @@ public class Rules {
 
         int lastLineID = p == Player.WHITE ? bHeight - 1 : 0;
         Player opponent = p == Player.WHITE ? Player.BLACK : Player.WHITE;
-        byte valueToMatch = opponent.id;
+        byte valueToMatch = opponent.getId();
         byte[] lastLine = board[lastLineID];
         for (int i = 0; i < lastLine.length; i++) {
             if (lastLine[i] == valueToMatch) {
@@ -198,10 +202,10 @@ public class Rules {
         int[] result = new int[2];
         for (byte[] line : position) {
             for (byte square : line) {
-                if (square == Player.WHITE.id) {
+                if (square == Player.WHITE.getId()) {
                     result[0] += 1;
                 }
-                if (square == Player.BLACK.id) {
+                if (square == Player.BLACK.getId()) {
                     result[1] += 1;
                 }
             }
@@ -213,13 +217,13 @@ public class Rules {
         int[] result = new int[2];
 
         for (byte square : position[0]) {
-            if (square == Player.WHITE.id) {
+            if (square == Player.WHITE.getId()) {
                 result[0] += 1;
             }
         }
 
         for (byte square : position[bHeight - 1]) {
-            if (square == Player.BLACK.id) {
+            if (square == Player.BLACK.getId()) {
                 result[1] += 1;
             }
         }
@@ -229,13 +233,13 @@ public class Rules {
     public void printBoard(Long board) {
         printBoard(toBoard(board), true);
     }
-    
-        public void printBoard(byte[][] board) {
+
+    public void printBoard(byte[][] board) {
         printBoard(board, true);
     }
 
     public void printBoard(byte[][] board, boolean isWhite) {
-        System.out.println(toString(board,isWhite) );
+        System.out.println(toString(board, isWhite));
     }
 
     public String toString(Long positionID) {
@@ -247,9 +251,9 @@ public class Rules {
     }
 
     public String toString(byte[][] board, boolean isWhiteView) {
-        
-        if(!isWhiteView){
-        board = rotateBoard(board);
+
+        if (!isWhiteView) {
+            board = rotateBoard(board);
         }
 
         StringBuilder sb = new StringBuilder("");
@@ -367,28 +371,28 @@ public class Rules {
 
         for (int i = 0; i < boardOld.length; i++) {
             for (int j = 0; j < boardOld[0].length; j++) {
-                if (boardOld[i][j] == Player.EMPTY.id) {
-                    if (boardNew[i][j] == Player.EMPTY.id) {
+                if (boardOld[i][j] == Player.EMPTY.getId()) {
+                    if (boardNew[i][j] == Player.EMPTY.getId()) {
                         overlay[i][j] = ' ';
-                    } else if (boardNew[i][j] == Player.WHITE.id) {
+                    } else if (boardNew[i][j] == Player.WHITE.getId()) {
                         overlay[i][j] = 'X';
-                    } else if (boardNew[i][j] == Player.BLACK.id) {
+                    } else if (boardNew[i][j] == Player.BLACK.getId()) {
                         overlay[i][j] = '@';
                     }
-                } else if (boardOld[i][j] == Player.WHITE.id) {
-                    if (boardNew[i][j] == Player.EMPTY.id) {
+                } else if (boardOld[i][j] == Player.WHITE.getId()) {
+                    if (boardNew[i][j] == Player.EMPTY.getId()) {
                         overlay[i][j] = '+';
 
-                    } else if (boardNew[i][j] == Player.WHITE.id) {
+                    } else if (boardNew[i][j] == Player.WHITE.getId()) {
                         overlay[i][j] = 'x';
 
                     }
 
-                } else if (boardOld[i][j] == Player.BLACK.id) {
-                    if (boardNew[i][j] == Player.EMPTY.id) {
+                } else if (boardOld[i][j] == Player.BLACK.getId()) {
+                    if (boardNew[i][j] == Player.EMPTY.getId()) {
                         overlay[i][j] = 'o';
 
-                    } else if (boardNew[i][j] == Player.BLACK.id) {
+                    } else if (boardNew[i][j] == Player.BLACK.getId()) {
                         overlay[i][j] = 'O';
 
                     }
@@ -402,7 +406,7 @@ public class Rules {
 
     public Player getPlayerByID(byte playerID) {
         for (Player p : Player.values()) {
-            if (p.id == playerID) {
+            if (p.getId() == playerID) {
                 return p;
             }
         }
@@ -420,16 +424,12 @@ public class Rules {
         return newBoardState;
     }
 
-    private Long toIndexInConstructor(byte[][] position) {
-        return toIndex(position);
-    }
-
     public byte togglePlayerID(byte id) {
-        if (id == Player.WHITE.id) {
-            return Player.BLACK.id;
+        if (id == Player.WHITE.getId()) {
+            return Player.BLACK.getId();
         }
-        if (id == Player.BLACK.id) {
-            return Player.WHITE.id;
+        if (id == Player.BLACK.getId()) {
+            return Player.WHITE.getId();
         }
         try {
             throw new Exception("Player id " + id + " is invalid");
@@ -438,30 +438,21 @@ public class Rules {
         }
         return -1;
     }
-    
 
-
-    void printPossibleMoves(List<Long> possibleMoves, boolean isWhiteView) {
+    public void printPossibleMoves(List<Long> possibleMoves, boolean isWhiteView) {
 
         String boardsRepresentation = boardsToString(possibleMoves, isWhiteView);
         System.out.println(boardsRepresentation);
 
     }
-    
-    private String boardsToString(List<Long> possibleMoves) {
-        return boardsToString(possibleMoves, true);
-    }
-    
 
     private String boardsToString(List<Long> possibleMoves, boolean isWhiteView) {
 
         StringBuilder sb = new StringBuilder("");
 
         List<byte[][]> boards = idsToBoards(possibleMoves);
-        
-        
+
         List<String[]> boardLines = new ArrayList<>();
-        
 
         for (byte[][] board : boards) {
 
@@ -511,7 +502,6 @@ public class Rules {
     }
 
     public static byte[][] rotateBoard(byte[][] originalBoard) {
-
 
         byte[][] result = new byte[originalBoard.length][originalBoard[0].length];
 

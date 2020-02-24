@@ -1,6 +1,5 @@
 package gui;
 
-import partrs.ArenaEngine;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -22,7 +21,6 @@ public class BoardFrame {
 
     BoardPanel bPanel;
     private GameTracker gameTracker;
-    private ArenaEngine engine;
     JFrame mainFrame;
     MouseListener mouseListener;
 
@@ -115,14 +113,6 @@ public class BoardFrame {
 
     BoardPanel getBPanel() {
         return bPanel;
-    }
-
-    public ArenaEngine getEngine() {
-        return engine;
-    }
-
-    public void setEngine(ArenaEngine engine) {
-        this.engine = engine;
     }
 
     class ButtonListener implements ActionListener {
